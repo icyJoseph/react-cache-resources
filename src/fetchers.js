@@ -11,7 +11,7 @@ export const customFetch = query => {
 
 function delay(data) {
   return new Promise(resolve => {
-    setTimeout(() => resolve(data), 5000);
+    setTimeout(() => resolve(data), 2000);
   });
 }
 
