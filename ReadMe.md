@@ -1,4 +1,4 @@
-# Time Slice
+# Time Slicing
 
 A small react study, which uses a try-catch block to mock a React Fiber, that tries to shows asynchronously obtained data, and catches when the data is not preset in a cache.
 

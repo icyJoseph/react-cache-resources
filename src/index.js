@@ -6,6 +6,7 @@ import { customFetch } from "./fetchers";
 
 const Pokemon = ({ query }) => {
   console.log(query);
+  // half-synchronous type of call
   const pokemon = customFetch(query);
   return (
     <div>
@@ -18,6 +19,8 @@ const Pokemon = ({ query }) => {
   );
 };
 
+// all react components are Fibers now,
+// but we control this one with a HoC
 const WithFiber = FiberHoC(Pokemon);
 
 function App() {

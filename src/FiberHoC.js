@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { fetchWithCache } from "./fetchers";
 
+// naive Fiber implementation
 export const FiberHoC = C => {
   function Node({ fallback, ...props }) {
     const [vNode, patch] = useState(null);
