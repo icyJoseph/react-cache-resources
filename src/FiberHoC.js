@@ -1,21 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { fetchWithCache } from "./fetchers";
 
 // naive Fiber implementation
 export const FiberHoC = C => {
   function Node({ fallback, ...props }) {
     const [vNode, patch] = useState(null);
+
     useEffect(() => {
+      let cancel = false;
       try {
         const MaybeNode = C(props);
         patch(MaybeNode);
       } catch (e) {
-        patch(fallback());
-        fetchWithCache(e).then(() => {
-          const MaybeNode = C(props);
-          patch(MaybeNode);
-        });
+        patch(fallback);
+        e.then(() => {
+          if (!cancel) {
+            const MaybeNode = C(props);
+            patch(MaybeNode);
+          }
+        }).catch(() => patch(fallback));
       }
+
+      return () => {
+        cancel = true;
+        console.log("clean up");
+      };
     }, [props.query]);
 
     return vNode;
